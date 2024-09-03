@@ -55,6 +55,17 @@
         />
       </div>
     </div>
+    <div class="m-8">
+      <h1 class="mb-8 text-2xl">Oulet</h1>
+      <div class="flex flex-row gap-6">
+        <ItemCard
+          :itemData="item"
+          v-for="item in homeProducts"
+          :key="item.id"
+          @click="clickItemCard(item)"
+        />
+      </div>
+    </div>
   </section>
 </template>
 

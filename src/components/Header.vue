@@ -25,12 +25,28 @@
       </div>
 
       <div>
-        <button class="ml-10">
-          <el-icon :size="20">
-            <User />
-          </el-icon>
-        </button>
-        <button class="ml-6">
+        <el-popover placement="bottom" :width="200" trigger="click">
+          <div class="flex flex-col items-center">
+            <el-icon :size="50">
+              <User />
+            </el-icon>
+            Angie Castañeda Martinez
+            <button
+              class="max-w-50 my-2.5 p-1.5 bg-blue-logo text-white rounded"
+            >
+              Profile
+            </button>
+          </div>
+          <template #reference>
+            <button class="ml-10">
+              <el-icon :size="20">
+                <User />
+              </el-icon>
+            </button>
+          </template>
+        </el-popover>
+
+        <button class="ml-6" @click="changeRoute('cart')">
           <el-icon :size="20">
             <ShoppingCart />
           </el-icon>

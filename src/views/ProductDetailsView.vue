@@ -4,10 +4,12 @@
       <img :src="productData.images[0]" alt="" class="rounded max-w-sm" />
     </div>
     <div class="flex flex-col gap-y-1.5">
-      <span>{{ productData.title }}</span>
-      <el-rate v-model="rating" :colors="colors" disabled />
+      <span class="font-bold">{{ productData.title }}</span>
       <span>{{ productData.description }}</span>
-      <span>Price {{ productData.price }}</span>
+      <span class="font-semibold">${{ productData.price }}</span>
+      <el-rate v-model="rating" :colors="colors" disabled />
+      <button class="max-w-60 my-2.5 p-1.5 bg-blue-logo text-white rounded">Buy now</button>
+      <button class="max-w-60 border-2 p-1.5 border-blue-logo text-blue-logo rounded" @click="addToCart(productData)">Add to cart</button>
     </div>
   </section>
 </template>
@@ -20,11 +22,14 @@ import useProductsStore from "@/stores/modules/products";
 const route = useRoute();
 const productData = ref(null);
 const rating = ref(3);
-const colors = ref(["#99A9BF", "#F7BA2A", "#FF9900"]);
+const colors = ref(["#99A9BF", "#f8ca2e", "#f5a04d"]);
 const productsStore = useProductsStore();
 
+const addToCart = (product) => {
+  productsStore.addProductToCart(product);
+}
+
 onBeforeMount(async () => {
-  console.log(route.params.id);
     productData.value = await productsStore.getProductById({
       id: route.params.id,
     });

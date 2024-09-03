@@ -9,6 +9,7 @@ const useProductsStore = defineStore('products', {
     products: [],
     productDetails: {},
     productById: {},
+    cartList: []
   }),
   actions: {
 
@@ -48,6 +49,14 @@ const useProductsStore = defineStore('products', {
         return err;
       }
     },
+
+    addProductToCart(product) {
+      this.cartList.push(product);
+    },
+    removeProductfromCart(product) {
+      let productIndex = this.cartList.indexOf((item) => item.id === product.id);
+      this.cartList.splice(productIndex, 1);
+    }
   },
 
 });

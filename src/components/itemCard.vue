@@ -4,7 +4,7 @@
     <div class="p-2">
       <span>{{ itemData.title }}</span>
       <el-rate v-model="rating" :colors="colors" disabled />
-      <span>price {{ itemData.price }}</span>
+      <span class="font-semibold">${{ itemData.price }}</span>
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@ defineProps({
 });
 
 const rating = ref(3);
-const colors = ref(["#99A9BF", "#F7BA2A", "#FF9900"]);
+const colors = ref(["#99A9BF", "#f8ca2e", "#f5a04d"]);
 </script>
 
 <style scoped>
