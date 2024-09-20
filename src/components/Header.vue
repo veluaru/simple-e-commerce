@@ -25,15 +25,32 @@
       </div>
 
       <div>
-        <button class="ml-10">
-          <el-icon :size="20">
-            <User />
-          </el-icon>
-        </button>
-        <button class="ml-6">
+        <el-popover placement="bottom" :width="200" trigger="click">
+          <div class="flex flex-col items-center">
+            <el-icon :size="50">
+              <User />
+            </el-icon>
+            Angie Castañeda Martinez
+            <button
+              class="max-w-50 my-2.5 p-1.5 bg-blue-logo text-white rounded"
+            >
+              Profile
+            </button>
+          </div>
+          <template #reference>
+            <button class="ml-10">
+              <el-icon :size="20">
+                <User />
+              </el-icon>
+            </button>
+          </template>
+        </el-popover>
+
+        <button class="ml-6 relative" @click="changeRoute('cart')">
           <el-icon :size="20">
             <ShoppingCart />
           </el-icon>
+          <span v-if="productsStore.cartList.length > 0" class="flex items-center justify-center text-white text-xs bg-purple-logo rounded-full h-4 w-4 absolute -bottom-1 -right-3">{{ productsStore.cartList.length }}</span>
         </button>
       </div>
     </div>
@@ -46,13 +63,14 @@ import { useRouter, useRoute } from "vue-router";
 import { User } from "@element-plus/icons-vue";
 import { ShoppingCart } from "@element-plus/icons-vue";
 import { Search } from "@element-plus/icons-vue";
+import useProductsStore from "@/stores/modules/products";
 
 const router = useRouter();
 const route = useRoute();
 const searchText = ref();
+const productsStore = useProductsStore();
 
 const onSearchText = () => {
-  console.log("enteer");
   router.push({ name: "searchResults", params: { search: searchText.value } });
 };
 
@@ -62,3 +80,7 @@ const changeRoute = (routeName, routeParams) => {
   }
 };
 </script>
+
+<style scoped>
+
+</style>

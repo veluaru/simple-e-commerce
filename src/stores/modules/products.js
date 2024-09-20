@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-const apiUrl = "https://api.escuelajs.co/api/v1";
+const apiUrl = "https://fakestoreapi.com";
 
 const useProductsStore = defineStore('products', {
 
@@ -9,6 +9,7 @@ const useProductsStore = defineStore('products', {
     products: [],
     productDetails: {},
     productById: {},
+    cartList: []
   }),
   actions: {
 
@@ -26,7 +27,6 @@ const useProductsStore = defineStore('products', {
 
     async getProductById({id}) {
       try {
-        console.log(id);
         const response = await axios.get(`${apiUrl}/products/${id}`);
         this.productById = response.data;
         return response.data;
@@ -48,6 +48,35 @@ const useProductsStore = defineStore('products', {
         return err;
       }
     },
+
+    getIndexFromCartList(id) {
+      for (let i = 0; i < this.cartList.length; i++) {
+        if(this.cartList[i].id === id) {
+          return i;
+        }
+      }
+      return -1;
+    },
+
+    addProductToCart(product) {
+      let productIndex = this.getIndexFromCartList(product.id);
+      if(productIndex !== -1) {
+        this.cartList[productIndex].quantity += 1;
+        return
+      }
+      let newProduct = product;
+      newProduct.quantity = 1;
+      this.cartList.push(newProduct);
+    },
+
+    removeProductfromCart(product) {
+      let productIndex = this.getIndexFromCartList(product.id);
+      if(this.cartList[productIndex].quantity > 1) {
+        this.cartList[productIndex].quantity -= 1;
+        return
+      }
+      this.cartList.splice(productIndex, 1);
+    }
   },
 
 });

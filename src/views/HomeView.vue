@@ -1,5 +1,5 @@
 <template>
-  <section class="block" m="t-4">
+  <section class="home block" m="t-4">
     <el-carousel trigger="click" height="650px">
       <el-carousel-item>
         <picture>
@@ -44,8 +44,19 @@
         </picture>
       </el-carousel-item>
     </el-carousel>
-    <div class="m-8">
+    <div class="flex flex-col items-center justify-center m-8">
       <h1 class="mb-8 text-2xl">New Items!</h1>
+      <div class="flex flex-row gap-6">
+        <ItemCard
+          :itemData="item"
+          v-for="item in homeProducts"
+          :key="item.id"
+          @click="clickItemCard(item)"
+        />
+      </div>
+    </div>
+    <div class="flex flex-col items-center justify-center m-8">
+      <h1 class="mb-8 text-2xl">Oulet</h1>
       <div class="flex flex-row gap-6">
         <ItemCard
           :itemData="item"
@@ -70,10 +81,15 @@ const router = useRouter();
 
 onBeforeMount(async () => {
   homeProducts.value = await productsStore.getProducts({ limit: 4, offset: 0 });
-  console.log(homeProducts.value);
 });
 const clickItemCard = (item) => {
   router.push({ name: "productDetails", params: { id: item.id } });
 };
 </script>
+
+<style scoped>
+.home {
+  padding: 0 10%
+}
+</style>
 
