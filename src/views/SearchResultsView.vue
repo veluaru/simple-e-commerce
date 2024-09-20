@@ -4,7 +4,7 @@
       class="m-8"
       v-if="searchResultsProducts.length > 0 && !loadingProducts"
     >
-      <h1 class="mt-10 mb-8 text-2xl">Search results for {{ route.params.search }}</h1>
+      <h2 class="mt-10 mb-8 text-xl">Search results for {{ route.params.search }}</h2>
       <div class="flex flex-row gap-6 flex-wrap">
         <ItemCard
           :itemData="item"
@@ -39,7 +39,6 @@ const searchResultsProducts = ref([]);
 const loadingProducts = ref(false);
 
 onBeforeMount(async () => {
-  console.log("entrooo a search results")
   loadingProducts.value = true;
   searchResultsProducts.value = await productsStore.getProducts({
     title: route.params.search,
@@ -52,3 +51,8 @@ const clickItemCard = (item) => {
 };
 </script>
 
+<style scoped>
+.el-loading-parent--relative :deep() {
+  position: initial !important;
+}
+</style>

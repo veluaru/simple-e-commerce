@@ -46,10 +46,11 @@
           </template>
         </el-popover>
 
-        <button class="ml-6" @click="changeRoute('cart')">
+        <button class="ml-6 relative" @click="changeRoute('cart')">
           <el-icon :size="20">
             <ShoppingCart />
           </el-icon>
+          <span v-if="productsStore.cartList.length > 0" class="flex items-center justify-center text-white text-xs bg-purple-logo rounded-full h-4 w-4 absolute -bottom-1 -right-3">{{ productsStore.cartList.length }}</span>
         </button>
       </div>
     </div>
@@ -62,13 +63,14 @@ import { useRouter, useRoute } from "vue-router";
 import { User } from "@element-plus/icons-vue";
 import { ShoppingCart } from "@element-plus/icons-vue";
 import { Search } from "@element-plus/icons-vue";
+import useProductsStore from "@/stores/modules/products";
 
 const router = useRouter();
 const route = useRoute();
 const searchText = ref();
+const productsStore = useProductsStore();
 
 const onSearchText = () => {
-  console.log("enteer");
   router.push({ name: "searchResults", params: { search: searchText.value } });
 };
 
@@ -78,3 +80,7 @@ const changeRoute = (routeName, routeParams) => {
   }
 };
 </script>
+
+<style scoped>
+
+</style>
